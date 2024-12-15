@@ -1,47 +1,52 @@
-<html>
-
-  <style>
-    #demo1 {
-      background: rgb(119,135,155);
-      width: 70%;
-      height: 150px;
-    }
-    #demo2 {
-      background: rgb(123,123,123);
-      width: 70%;
-      height: 150px;
-    }
-    #demo3 {
-      background: rgb(119,5,155);
-      width: 70%;
-      height: 150px;
-    }
-  </style>
+<!DOCTYPE html>
+<html lang="es">
   <head>
-
-    
+    <meta charset="utf-8">
+    <title>2da página: Mi primera página web con JavaScript</title>
+    <link rel="stylesheet" href="estilo.css">
+    <style>
+      #demo1 {
+        background: rgb(119, 135, 155);
+        width: 70%;
+        height: 150px;
+      }
+      #demo2 {
+        background: rgb(123, 123, 123);
+        width: 70%;
+        height: 150px;
+      }
+      #demo3 {
+        background: rgb(119, 5, 155);
+        width: 70%;
+        height: 150px;
+      }
+    </style>
   </head>
- <meta charset="utf-8">
-        <title> 2da pagina.</title>
-        <link rel="stylesheet" href="estilo.css">
-<body>
-   <h2><a href="index.html">  ENLACE A WEB 1</a> </h2>
-   <h2><a href="index2.html">  ENLACE A WEB 2</a> </h2>
-<h1>mi primera pagina web con JAVA SCRIPT</h1>
-  <h3 id="demo1">encabezado usando estilo 1</h3>
-  <h3 id="demo2">encabezado usando estilo 2</h3>
-  <h3 id="demo3">encabezado usando estilo 3</h3>
-   
+  <body>
+    <h2><a href="index.html">ENLACE A WEB 1</a></h2>
+    <h2><a href="index2.html">ENLACE A WEB 2</a></h2>
+    <h1>Mi primera página web con JavaScript</h1>
+    
+    <h3 id="demo1">Encabezado usando estilo 1</h3>
+    <h3 id="demo2">Encabezado usando estilo 2</h3>
+    <h3 id="demo3">Encabezado usando estilo 3</h3>
+    
+    <div id="result"></div> <!-- Contenedor para los resultados -->
 
-  <script>
-      
-var nombre = prompt("introduce tu nombre");
- document.write("el nombre que has introducido es: " + nombre );
-    var numero = prompt("introduce un número");
-    var numero2 = prompt("introduce otro número");
-    document.write(",el resultado de tus dos numeros sumados es: " + (Number(numero) + Number(numero2)));
-    var edad = prompt("introduce tu edad");
-    document.write(".Tu edad es: " + edad);
- </script>
-</body>
+    <script>
+      // Solicitar datos al usuario
+      var nombre = prompt("Introduce tu nombre");
+      var numero = prompt("Introduce un número");
+      var numero2 = prompt("Introduce otro número");
+      var edad = prompt("Introduce tu edad");
+
+      // Mostrar los resultados dentro del div "result"
+      var resultContent = "El nombre que has introducido es: " + nombre + "<br>";
+      resultContent += "El resultado de tus dos números sumados es: " + (Number(numero) + Number(numero2)) + "<br>";
+      resultContent += "Tu edad es: " + edad;
+
+      // Incluir el contenido en el div con id="result"
+      document.getElementById("result").innerHTML = resultContent;
+    </script>
+  </body>
 </html>
