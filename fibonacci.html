@@ -1,39 +1,32 @@
 <html>
     <head>
-        <title>Mi Página sobre la serie de fibonacci</title> 
+        <title>Mi Página sobre calcular factorial </title> 
         <link rel="stylesheet" href="estilo.css">
     </head>
     <body>    
    
-        <h1> Mi  WEB acerca de los numeros de fibonacci</h1>
+        <h1> Mi  WEB acerca de un factorial</h1>
+        <script src="script-leer-numeros.js"></script>
         <script>
             var numero;
-            // Pedimos al usuario que introduzca un número                     
-            numero =  prompt("Introduce un número entre 1 y 100 para calcular la serie de Fibonacci");  
-            numero = Number(numero); // Convertimos el texto a numero    
-            while (numero < 1 || numero > 100) {
-                numero = prompt("Número inválido. Introduce un número entre 1 y 100:");
-                numero = Number (numero); // Convertimos el texto a numero
+            var factorial;
+            var i = 1;
+         numero =  prompt("Introduce un número entre 1 y 100 para calcular la serie de Fibonacci");  
+            numero = Number(numero);
+            var factorial = 1;
+            for ( i = 1; i <= numero; i++) {
+                factorial = factorial * i;
             }
-
-            // a y b se inicializan con los dos primeros números de la secuencia (0 y 1).
-            // temp se utiliza como una variable temporal para almacenar el siguiente número de la secuencia.
-            var a = 1;
-            var b = 2;
-            var temp;
-            var i= 2;
-
-            document.write (a); // Imprimimos el primer número de la sucesión
-            document.write ("<br>"+b); // Imprimimos el segundo número
-
-            //Se repite desde 2 hasta la cantidad que se haya introducido (ya que los dos primeros números ya se han impreso).
-            for (i = 2; i < numero; i++) {
-              temp = a + b; // En cada iteración, se calcula el siguiente número de la secuencia sumando a y b, y se almacena en temp.
-              document.write("<br>"+temp); //Se imprime el valor de temp.
-              a = b;
-              b = temp; 
-              //Se actualizan los valores de a y b para la siguiente iteración: a toma el valor de b, y b toma el valor de temp.
-              }
-         </script>
+          
+          // En cada iteración del bucle, se multiplica el valor actual de factorial por el valor actual de i y asigna el resultado a la variable factorial, es decir, en cada iteración:
+          // se está multiplicando factorial por los números del 1 al numero por el usuario
+          // Ejemplo de un cálculo del factorial:
+          // La primera vez que se ejecuta el bucle, factorial es 1 y i es 1, por lo que factorial se convierte en 1 * 1 = 1.
+          // En la segunda iteración, factorial es 1 y i es 2, por lo que factorial se convierte en 1 * 2 = 2.
+          // En la tercera iteración, factorial es 2 y i es 3, por lo que factorial se convierte en 2 * 3 = 6.
+          // Y así sucesivamente, hasta que se haya multiplicado por todos los números del 1 al numero.
+          // Una vez que el bucle ha terminado, se escribe "El factorial de [numero] es: [factorial]".
+          
+        </script>
 </body>
 </html>
