@@ -7,10 +7,11 @@ function ComprobarSiEsPrimo (numero)
           {
           if ( numero% i ==0)
           {
-            EsPrimo = fasle;
+            EsPrimo = false;
+            return EsPrimo;
           }
 
           }
-    EsPrimo = true;9087
+    EsPrimo = true;
     return EsPrimo;
 }
