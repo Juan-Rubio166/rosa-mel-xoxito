@@ -1,18 +1,16 @@
-
-function par (numero)
-{
-    var EsPar;
-      var i;
-
-        for (i=numero-1; i>=2; i=i-1)
-          {
-          if ( numero% i ==0)
-          {
-            EsPrimo = false;
-            return EsPrimo;
-          }
-
-          }
-    EsPar = true;
-    return EsPar;
-}
+function parono (numero)
+  {
+    var parsi;
+    var i = 2;
+   
+     
+        if ( numero % i == 0 )
+        {
+          parsi = true;
+          return parsi;
+        }
+     
+       
+    parsi = false;
+    return parsi;
+  }
