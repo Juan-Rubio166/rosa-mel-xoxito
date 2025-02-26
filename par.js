@@ -1,4 +1,4 @@
-function parono (numero)
+function par (numero)
   {
     var parsi;
     var i = 2;
