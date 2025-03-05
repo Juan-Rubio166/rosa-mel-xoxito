@@ -8,10 +8,13 @@
     <script src="PedirNumeroEnRango.js"> </script>
       <script>
       var numero;
+        var i;
       numero = PedirNumeroEnRango (2, 666);
       document.write ("<h1> Calculo si " +numero+ " es par o no </h1>");
       var parsi;
       parsi = par (numero);
+        for (i=2; i<numero; i = i+1)
+          {
       if ( parsi == true )
         {
         document.write( numero + " par Si ");
@@ -20,6 +23,7 @@
       {
         document.write (numero + "par incorrecto");
       }
+          }
       </script>
   </body>
 </html>
