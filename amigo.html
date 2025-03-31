@@ -1,1 +1,24 @@
+<html>
+  <head>
+    <title> web sobre nombres amigos</title>
+  </head>
+  <body>
+<script src="PedirNumeroEnRango.js"></script>
+    <script>
+      var nombres = [];
+      var i;
+      var favoritos;
+      var nombre;
 
+      favoritos = PedirNumeroEnRangoMejorado ("Dime cuantos numeros favoritos tienes entre ",2,6);
+      for (i=1; i <= favoritos; i = i+1 ) 
+      {
+         nombre = prompt("ingresar un nombre ");
+        nombre.push (nombre);
+      }
+      document.write ("<br><h2>tus amigos son: </h2></br>");
+      document.write ("<br>");
+       document.write("<span style='color:red; font-size: 20px; margin: 0 5px; font-weight: bold;'>" + nombres + "</span>");
+    </script>
+  </body>
+</html>
