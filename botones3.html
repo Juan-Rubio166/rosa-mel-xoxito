@@ -63,38 +63,43 @@
 <body>
     <!-- Contenedor principal -->
     <div class="contenedor">
-        <h1>¿Cómo te llamas?</h1>
+        <h1>¿Cual es tu numero favorito?</h1>
 
         <!-- Campo de entrada para el nombre del usuario -->
-        <input type="text" id="entradaNombre" placeholder="Teclea tú nombre aquí"><br>
+        <input type="text" id="entradaNumero" placeholder="Teclea tú numero aquí"><br>
 
         <!-- Botón para generar el saludo -->
-        <button id="botonSaludar">Saludar</button>
+        <button id="botonFactorial">calcular el factorial</button>
 
         <!-- Área donde se mostrará el mensaje -->
-        <div id="mensaje"></div>
+        <div id="factorial"></div>
     </div>
 
     <script>
         // Declaramos las variables que usaremos globalmente
-        var nombre, mensajeDiv;
+        var numero, factorialDiv, i = 1;
+        numero = Number(numero);
+        var factorial = 1;
 
         // Esperamos a que se haga clic en el botón
-        document.getElementById('botonSaludar').addEventListener('click', function() {
+        document.getElementById('botonFactorial').addEventListener('click', function() {
 
             // Obtenemos el valor del input (lo que el usuario ha escrito)
-            nombre = document.getElementById('entradaNombre').value;
+            nombre = document.getElementById('entradaNumero').value;
 
             // Referencia al elemento donde mostraremos el mensaje
-            mensajeDiv = document.getElementById('mensaje');
+            mensajeDiv = document.getElementById('factorial');
 
             // Si el usuario escribió algo, saludamos
-            if (nombre) {
-                mensajeDiv.textContent = ("¡Hola, " + nombre + "! ¡Bienvenido a clase! 👋");
+            if (numero) {
+              for ( i = 1; i <= numero; i++) {
+                factorial = factorial * i;
+                            document.write ("<br> el factorial de " + i + " es:" + factorial);
+            }
             } 
             // Si el campo está vacío, le pedimos que escriba su nombre
             else {
-                mensajeDiv.textContent = ("¡Dime tú nombre para saludarte 😊!");
+                mensajeDiv.textContent = ("¡Dime tú número favorito 😊!");
             }
         });
     </script>
