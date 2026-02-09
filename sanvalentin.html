@@ -6,98 +6,115 @@
 <title>San Valentín</title>
 
 <style>
-  *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: "Segoe UI", sans-serif;
-  }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Segoe UI", sans-serif;
+}
 
-  body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background: radial-gradient(circle at top, #ff3cac, #562b7c, #111);
-    overflow:hidden;
-    color:white;
-  }
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: radial-gradient(circle at top, #ff3cac, #562b7c, #111);
+  overflow:hidden;
+  color:white;
+}
 
-  .heart{
-    position:absolute;
-    font-size:20px;
-    animation: float 8s linear infinite;
-    opacity:0.6;
-  }
+/* corazones */
+.heart{
+  position:absolute;
+  font-size:18px;
+  animation: float 8s linear infinite;
+  opacity:0.6;
+}
 
-  @keyframes float{
-    from { transform: translateY(100vh) scale(0.8); }
-    to { transform: translateY(-10vh) scale(1.2); }
-  }
+@keyframes float{
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
+}
 
-  #box{
-    background: rgba(0,0,0,0.6);
-    padding:40px 60px;
-    border-radius:20px;
-    box-shadow:0 0 25px rgba(255,255,255,0.2);
-    text-align:center;
-    backdrop-filter: blur(10px);
-  }
+#box{
+  background: rgba(0,0,0,0.55);
+  padding:50px 70px;
+  border-radius:20px;
+  box-shadow:0 0 30px rgba(0,0,0,0.5);
+  text-align:center;
+  backdrop-filter: blur(10px);
+  max-width:700px;
+}
 
-  h1{
-    margin-bottom:20px;
-    font-weight:300;
-    font-size:2rem;
-  }
+#title{
+  font-size:2.5rem;
+  margin-bottom:25px;
+}
 
-  #timer{
-    font-size:2.8rem;
-    letter-spacing:2px;
-  }
+#message{
+  font-size:1.2rem;
+  line-height:1.6;
+  margin-bottom:30px;
+}
+
+#timer{
+  font-size:2rem;
+  letter-spacing:2px;
+}
 </style>
 </head>
 
 <body>
 
 <div id="box">
-  <h1>Do you wanna be my San Valentin?</h1>
+  <div id="title">Do you wanna be my San Valentin?</div>
+
+  <div id="message">
+    mi querida pequeña después de estos <span id="daysText">0</span> días desde que lo he hecho,<br>
+    vamos a pasar nuestro primer san valentín juntos,<br>
+    obviamente no pongo ni respuesta porque solo existe un sí,<br>
+    te quiero mucho mi niña ❤️
+  </div>
+
   <div id="timer">Cargando...</div>
 </div>
 
 <script>
-  // ❤️ corazones animados
-  for(let i=0;i<25;i++){
-    const h=document.createElement("div");
-    h.className="heart";
-    h.innerHTML="❤";
-    h.style.left=Math.random()*100+"vw";
-    h.style.animationDuration=(5+Math.random()*5)+"s";
-    document.body.appendChild(h);
+/* corazones */
+for(let i=0;i<30;i++){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(5+Math.random()*5)+"s";
+  document.body.appendChild(h);
+}
+
+/* contador */
+const startDate = new Date("April 14, 2025 10:00:00").getTime();
+
+function updateTimer(){
+  const now = new Date().getTime();
+  let diff = now - startDate;
+
+  if(diff < 0){
+    document.getElementById("timer").innerHTML="Aún no ha empezado";
+    return;
   }
 
-  // ⏱️ contador desde 14 abril 10:00
-  const startDate = new Date("April 14, 2025 10:00:00").getTime();
+  const d = Math.floor(diff/(1000*60*60*24));
+  const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  const m = Math.floor((diff%(1000*60*60))/(1000*60));
+  const s = Math.floor((diff%(1000*60))/1000);
 
-  function updateTimer(){
-    const now = new Date().getTime();
-    let diff = now - startDate;
+  document.getElementById("timer").innerHTML =
+    `${d}d ${h}h ${m}m ${s}s`;
 
-    if(diff < 0){
-      document.getElementById("timer").innerHTML="Aún no ha empezado";
-      return;
-    }
+  document.getElementById("daysText").innerText = d;
+}
 
-    const d = Math.floor(diff/(1000*60*60*24));
-    const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-    const m = Math.floor((diff%(1000*60*60))/(1000*60));
-    const s = Math.floor((diff%(1000*60))/1000);
-
-    document.getElementById("timer").innerHTML =
-      `${d}d ${h}h ${m}m ${s}s`;
-  }
-
-  setInterval(updateTimer,1000);
-  updateTimer();
+setInterval(updateTimer,1000);
+updateTimer();
 </script>
 
 </body>
