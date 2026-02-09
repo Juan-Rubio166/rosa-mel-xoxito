@@ -14,12 +14,13 @@
 }
 
 body{
-  height:100vh;
+  min-height:100vh;
   display:flex;
+  flex-direction:column;
   justify-content:center;
   align-items:center;
   background: radial-gradient(circle at top, #ff3cac, #562b7c, #111);
-  overflow:hidden;
+  overflow-x:hidden;
   color:white;
 }
 
@@ -44,6 +45,7 @@ body{
   text-align:center;
   backdrop-filter: blur(10px);
   max-width:700px;
+  margin-bottom:40px;
 }
 
 #title{
@@ -61,6 +63,14 @@ body{
   font-size:2rem;
   letter-spacing:2px;
 }
+
+/* imagen final */
+#photo{
+  max-width:90%;
+  width:600px;
+  border-radius:20px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.6);
+}
 </style>
 </head>
 
@@ -70,7 +80,7 @@ body{
   <div id="title">Do you wanna be my San Valentin?</div>
 
   <div id="message">
-    mi querida pequeña después de estos <span id="daysText">0</span> días (es lo que aparece cuando lo he terminado),<br>
+    mi querida pequeña después de estos <span id="daysText">0</span> días desde que lo he hecho,<br>
     vamos a pasar nuestro primer san valentín juntos,<br>
     obviamente no pongo ni respuesta porque solo existe un sí,<br>
     te quiero mucho mi niña ❤️
@@ -78,6 +88,9 @@ body{
 
   <div id="timer">Cargando...</div>
 </div>
+
+<!-- 👇 Imagen fuera del contador -->
+<img id="photo" src="sv.jpeg" alt="Nosotros">
 
 <script>
 /* corazones */
