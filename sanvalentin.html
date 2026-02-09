@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,70 +6,87 @@
 <title>San Valentín</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: "Segoe UI", sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif;}
 
 body{
   min-height:100vh;
   display:flex;
   flex-direction:column;
-  justify-content:center;
   align-items:center;
   background: radial-gradient(circle at top, #ff3cac, #562b7c, #111);
-  overflow-x:hidden;
   color:white;
+  overflow-x:hidden;
 }
 
-/* corazones */
+/* corazones flotantes fondo */
 .heart{
   position:absolute;
   font-size:18px;
   animation: float 8s linear infinite;
-  opacity:0.6;
+  opacity:0.5;
 }
-
 @keyframes float{
-  from { transform: translateY(100vh); }
-  to { transform: translateY(-10vh); }
+  from {transform: translateY(100vh);}
+  to {transform: translateY(-10vh);}
 }
 
+/* caja */
 #box{
+  margin-top:60px;
   background: rgba(0,0,0,0.55);
-  padding:50px 70px;
+  padding:40px;
   border-radius:20px;
-  box-shadow:0 0 30px rgba(0,0,0,0.5);
   text-align:center;
   backdrop-filter: blur(10px);
-  max-width:700px;
-  margin-bottom:40px;
-}
-
-#title{
-  font-size:2.5rem;
-  margin-bottom:25px;
-}
-
-#message{
-  font-size:1.2rem;
-  line-height:1.6;
-  margin-bottom:30px;
-}
-
-#timer{
-  font-size:2rem;
-  letter-spacing:2px;
-}
-
-/* imagen final */
-#photo{
   max-width:90%;
-  width:600px;
+}
+
+/* textos */
+#title{font-size:2.2rem;margin-bottom:20px;}
+#message{font-size:1.1rem;line-height:1.6;margin-bottom:25px;}
+#timer{font-size:1.6rem;margin-bottom:20px;}
+
+/* botones */
+.buttons{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;}
+button{
+  padding:12px 18px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:1rem;
+  transition:0.25s;
+}
+#yes{background:#ff4da6;color:white;}
+#no{
+  background:#444;color:white;
+  position:relative;
+}
+
+/* foto final */
+#photo{
+  opacity:0;
+  margin-top:30px;
+  max-width:90%;
   border-radius:20px;
-  box-shadow:0 10px 40px rgba(0,0,0,0.6);
+  transition:opacity 2s ease;
+}
+
+/* confeti corazones */
+.burst{
+  position:absolute;
+  font-size:22px;
+  animation: burst 1s ease forwards;
+}
+@keyframes burst{
+  to{
+    transform: translate(var(--x), var(--y)) scale(0.5);
+    opacity:0;
+  }
+}
+
+/* iframe oculto */
+#music{
+  width:0;height:0;border:0;
 }
 </style>
 </head>
@@ -80,56 +97,89 @@ body{
   <div id="title">Do you wanna be my San Valentin?</div>
 
   <div id="message">
-    mi querida pequeña después de estos <span id="daysText">0</span> días desde que lo he hecho,<br>
+    mi querida pequeña después de estos <span id="daysText">0</span> días (desde que lo he hecho),<br>
     vamos a pasar nuestro primer san valentín juntos,<br>
     obviamente no pongo ni respuesta porque solo existe un sí,<br>
     te quiero mucho mi niña ❤️
   </div>
 
-  <div id="timer">Cargando...</div>
+  <div id="timer"></div>
+
+  <div class="buttons">
+    <button id="yes">obviamente mi héroe, mi salvador, mi bestia, lo mejor del mundo</button>
+    <button id="no">que no, no te quiero</button>
+  </div>
 </div>
 
-<!-- 👇 Imagen fuera del contador -->
-<img id="photo" src="sv.jpeg" alt="Nosotros">
+<img id="photo" src="sv.jpeg">
+
+<iframe id="music"
+src="https://www.youtube.com/embed/Q5jQSZTgg0o?autoplay=1&loop=1&playlist=Q5jQSZTgg0o">
+</iframe>
 
 <script>
-/* corazones */
-for(let i=0;i<30;i++){
-  const h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="❤";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(5+Math.random()*5)+"s";
-  document.body.appendChild(h);
+/* corazones fondo */
+for(let i=0;i<25;i++){
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="❤";
+ h.style.left=Math.random()*100+"vw";
+ h.style.animationDuration=(5+Math.random()*5)+"s";
+ document.body.appendChild(h);
 }
 
 /* contador */
-const startDate = new Date("April 14, 2025 10:00:00").getTime();
+const startDate=new Date("April 14, 2025 10:00:00").getTime();
+setInterval(()=>{
+ let diff=Date.now()-startDate;
+ let d=Math.floor(diff/86400000);
+ let h=Math.floor(diff%86400000/3600000);
+ let m=Math.floor(diff%3600000/60000);
+ let s=Math.floor(diff%60000/1000);
+ document.getElementById("timer").innerHTML=`${d}d ${h}h ${m}m ${s}s`;
+ document.getElementById("daysText").innerText=d;
+},1000);
 
-function updateTimer(){
-  const now = new Date().getTime();
-  let diff = now - startDate;
+/* botones comportamiento */
+let noClicks=0;
+const yes=document.getElementById("yes");
+const no=document.getElementById("no");
 
-  if(diff < 0){
-    document.getElementById("timer").innerHTML="Aún no ha empezado";
-    return;
-  }
+no.onclick=()=>{
+ noClicks++;
 
-  const d = Math.floor(diff/(1000*60*60*24));
-  const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-  const m = Math.floor((diff%(1000*60*60))/(1000*60));
-  const s = Math.floor((diff%(1000*60))/1000);
+ // huir por pantalla
+ const x=Math.random()*200-100;
+ const y=Math.random()*200-100;
+ no.style.transform=`translate(${x}px,${y}px) scale(${1-noClicks*0.15})`;
 
-  document.getElementById("timer").innerHTML =
-    `${d}d ${h}h ${m}m ${s}s`;
+ yes.style.transform=`scale(${1+noClicks*0.15})`;
 
-  document.getElementById("daysText").innerText = d;
-}
+ if(noClicks>=4) no.style.display="none";
+};
 
-setInterval(updateTimer,1000);
-updateTimer();
+yes.onclick=()=>{
+ // mostrar foto
+ document.getElementById("photo").style.opacity=1;
+
+ // activar música
+ document.getElementById("music").style.width="1px";
+
+ // explosión corazones
+ for(let i=0;i<40;i++){
+  let c=document.createElement("div");
+  c.className="burst";
+  c.innerHTML="❤";
+  c.style.left=window.innerWidth/2+"px";
+  c.style.top=window.innerHeight/2+"px";
+  c.style.setProperty("--x",(Math.random()*600-300)+"px");
+  c.style.setProperty("--y",(Math.random()*600-300)+"px");
+  document.body.appendChild(c);
+  setTimeout(()=>c.remove(),1000);
+ }
+};
 </script>
 
 </body>
 </html>
-
+```
