@@ -1,8 +1,9 @@
-```html
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>San Valentín</title>
 
 <style>
@@ -13,81 +14,63 @@ body{
   display:flex;
   flex-direction:column;
   align-items:center;
-  background: radial-gradient(circle at top, #ff3cac, #562b7c, #111);
+  background: radial-gradient(circle at top,#ff3cac,#562b7c,#111);
   color:white;
-  overflow-x:hidden;
-}
-
-/* corazones flotantes fondo */
-.heart{
-  position:absolute;
-  font-size:18px;
-  animation: float 8s linear infinite;
-  opacity:0.5;
-}
-@keyframes float{
-  from {transform: translateY(100vh);}
-  to {transform: translateY(-10vh);}
 }
 
 /* caja */
 #box{
-  margin-top:60px;
+  margin-top:40px;
   background: rgba(0,0,0,0.55);
-  padding:40px;
+  padding:35px;
   border-radius:20px;
   text-align:center;
   backdrop-filter: blur(10px);
-  max-width:90%;
+  width:90%;
+  max-width:650px;
 }
 
-/* textos */
-#title{font-size:2.2rem;margin-bottom:20px;}
-#message{font-size:1.1rem;line-height:1.6;margin-bottom:25px;}
-#timer{font-size:1.6rem;margin-bottom:20px;}
+#title{font-size:clamp(1.6rem,4vw,2.5rem);margin-bottom:15px;}
+#message{font-size:1rem;line-height:1.6;margin-bottom:20px;}
+#timer{font-size:1.4rem;margin-bottom:20px;}
 
-/* botones */
-.buttons{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;}
+.buttons{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
 button{
-  padding:12px 18px;
+  padding:10px 16px;
   border:none;
   border-radius:12px;
   cursor:pointer;
-  font-size:1rem;
+  font-size:0.95rem;
   transition:0.25s;
 }
-#yes{background:#ff4da6;color:white;}
-#no{
-  background:#444;color:white;
-  position:relative;
-}
 
-/* foto final */
+#yes{background:#ff4da6;color:white;}
+#no{background:#444;color:white;}
+
+/* foto */
 #photo{
-  opacity:0;
+  width:90%;
+  max-width:600px;
   margin-top:30px;
-  max-width:90%;
-  border-radius:20px;
+  border-radius:18px;
+  opacity:0;
   transition:opacity 2s ease;
 }
 
-/* confeti corazones */
-.burst{
-  position:absolute;
-  font-size:22px;
-  animation: burst 1s ease forwards;
+/* iframe música */
+#musicContainer{
+  display:none;
+  width:90%;
+  max-width:560px;
+  margin-top:20px;
 }
-@keyframes burst{
-  to{
-    transform: translate(var(--x), var(--y)) scale(0.5);
-    opacity:0;
-  }
-}
-
-/* iframe oculto */
-#music{
-  width:0;height:0;border:0;
-}
+iframe{width:100%;height:315px;border:none;}
 </style>
 </head>
 
@@ -111,23 +94,11 @@ button{
   </div>
 </div>
 
-<img id="photo" src="sv.jpeg">
+<img id="photo" src="sv.jpeg" alt="Nosotros">
 
-<iframe id="music"
-src="https://www.youtube.com/embed/Q5jQSZTgg0o?autoplay=1&loop=1&playlist=Q5jQSZTgg0o">
-</iframe>
+<div id="musicContainer"></div>
 
 <script>
-/* corazones fondo */
-for(let i=0;i<25;i++){
- let h=document.createElement("div");
- h.className="heart";
- h.innerHTML="❤";
- h.style.left=Math.random()*100+"vw";
- h.style.animationDuration=(5+Math.random()*5)+"s";
- document.body.appendChild(h);
-}
-
 /* contador */
 const startDate=new Date("April 14, 2025 10:00:00").getTime();
 setInterval(()=>{
@@ -140,46 +111,32 @@ setInterval(()=>{
  document.getElementById("daysText").innerText=d;
 },1000);
 
-/* botones comportamiento */
-let noClicks=0;
+/* botones */
+let clicks=0;
 const yes=document.getElementById("yes");
 const no=document.getElementById("no");
 
 no.onclick=()=>{
- noClicks++;
-
- // huir por pantalla
- const x=Math.random()*200-100;
- const y=Math.random()*200-100;
- no.style.transform=`translate(${x}px,${y}px) scale(${1-noClicks*0.15})`;
-
- yes.style.transform=`scale(${1+noClicks*0.15})`;
-
- if(noClicks>=4) no.style.display="none";
+ clicks++;
+ no.style.transform=`scale(${1-clicks*0.15}) translate(${Math.random()*150-75}px,${Math.random()*150-75}px)`;
+ yes.style.transform=`scale(${1+clicks*0.15})`;
+ if(clicks>=4) no.style.display="none";
 };
 
 yes.onclick=()=>{
- // mostrar foto
+ // foto
  document.getElementById("photo").style.opacity=1;
 
- // activar música
- document.getElementById("music").style.width="1px";
-
- // explosión corazones
- for(let i=0;i<40;i++){
-  let c=document.createElement("div");
-  c.className="burst";
-  c.innerHTML="❤";
-  c.style.left=window.innerWidth/2+"px";
-  c.style.top=window.innerHeight/2+"px";
-  c.style.setProperty("--x",(Math.random()*600-300)+"px");
-  c.style.setProperty("--y",(Math.random()*600-300)+"px");
-  document.body.appendChild(c);
-  setTimeout(()=>c.remove(),1000);
- }
+ // música (compatible todos dispositivos)
+ const container=document.getElementById("musicContainer");
+ container.style.display="block";
+ container.innerHTML=`
+   <iframe src="https://www.youtube.com/embed/Q5jQSZTgg0o?autoplay=1"
+   allow="autoplay"></iframe>
+ `;
 };
 </script>
 
 </body>
 </html>
-```
+
